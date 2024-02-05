@@ -1,47 +1,58 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    entry: "./src/index.js",
-    mode: "development",
-    output: {
-        filename: "main.js",
-        path: path.resolve(__dirname, "dist"),
-    },
-    module: {
-        rules: [
-            {
-                test: /\.json$/,
-                loader: "json-loader",
-                type: "javascript/auto",
-            },
-            {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
-            },
-            {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: "asset/resource",
-                exclude: [
-                    path.resolve(__dirname, "src/assets/icons"), // Exclude specific folder
-                    path.resolve(__dirname, "src/images"), // Exclude another folder
-                ],
-            },
-            {
-                test: /\.svg$/,
-                loader: "file-loader",
-                options: {
-                    name: "[name].[ext]",
-                    outputPath: "assets/icons/", // Adjust the output path as needed
-                },
-            },
-        ],
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "Savory Delights Restaurant",
-            template: "./src/index.html",
-            filename: "index.html",
-        }),
-    ],
-};
+  entry: './src/index.js',
+  mode: 'development',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        type: 'javascript/auto'
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        exclude: [
+          path.resolve(__dirname, 'src/assets/icons'), // Exclude specific folder
+          path.resolve(__dirname, 'src/images') // Exclude another folder
+        ]
+      }
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[name].[ext]',
+      //     outputPath: 'assets/icons/' // Adjust the output path as needed
+      //   }
+      // }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Dank Todos',
+      template: './src/index.html',
+      filename: 'index.html'
+    })
+  ]
+}

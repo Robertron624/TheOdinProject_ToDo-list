@@ -141,6 +141,13 @@ a {
     width: 100%;
 }
 
+
+@mixin desktop {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
 /* Prefers color scheme */
 @media (prefers-color-scheme: dark) {
     body {
@@ -158,5 +165,19 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+
     --max-width: 1280px;
+
+    --base-text: #F5E8C7;
+    --base-bg: #363062;
+    --base-bg-light: #435585;
+    --base-bg-lighter: #818FB4;
+
+    background-color: var(--base-bg-light);
+}
+
+header {
+    width: 100%;
+    padding: 2rem 0;
+    background-color: var(--base-bg);
 }

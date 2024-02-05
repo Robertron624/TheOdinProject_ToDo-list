@@ -9,6 +9,9 @@
     "start": "webpack serve --mode development",
     "watch": "webpack --watch --mode development"
   },
+  "eslintConfig": {
+    "extends": "standard"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +19,9 @@
     "css-loader": "^6.10.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "standard": "^17.1.0",
     "style-loader": "^3.3.4",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4",
