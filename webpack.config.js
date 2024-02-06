@@ -1,11 +1,12 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
   output: {
-    filename: 'main.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -19,6 +20,13 @@ module.exports = {
           'css-loader',
           // Compiles Sass to CSS
           'sass-loader'
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        include: [
+          path.resolve(__dirname, 'src/assets') // Include the 'src/assets' folder
         ]
       },
       {
@@ -53,6 +61,11 @@ module.exports = {
       title: 'Dank Todos',
       template: './src/index.html',
       filename: 'index.html'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/assets', to: 'assets' } // Copy assets from src/assets to dist/assets
+      ]
     })
   ]
 }

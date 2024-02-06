@@ -23,28 +23,41 @@ class DomManipulator {
   generateTodoItem (todo) {
     const { id, title, completed, dueDate, priority, description, createdAt } = todo
 
+    const priorityColorClasses = {
+      high: 'todo-priority-high',
+      medium: 'todo-priority-medium',
+      low: 'todo-priority-low'
+    }
+
     const todoItem = document.createElement('li')
     todoItem.id = `todo-${id}`
     todoItem.className = 'todo-item'
 
     const todoTitle = document.createElement('h3')
+    todoTitle.className = 'todo-title'
     todoTitle.textContent = title
 
     const todoDescription = document.createElement('p')
+    todoDescription.className = 'todo-description'
     todoDescription.textContent = description
 
     const todoDueDate = document.createElement('p')
+    todoDueDate.classList.add('todo-due-date')
     todoDueDate.textContent = dueDate
 
     const todoPriority = document.createElement('p')
-    todoPriority.textContent = priority
+    todoPriority.classList.add('todo-priority')
+    todoPriority.classList.add(priorityColorClasses[priority])
+    todoPriority.innerHTML = `Priority: <span>${priority}</span>`
 
     const todoCreatedAt = document.createElement('p')
+    todoCreatedAt.classList.add('todo-created-at')
     todoCreatedAt.textContent = createdAt
 
     const todoCompleted = document.createElement('div')
+    todoCompleted.classList.add('todo-completed')
     const todoCompletedLabel = document.createElement('label')
-    todoCompletedLabel.textContent = 'Completed'
+    todoCompletedLabel.textContent = 'Completed?'
     const todoCompletedCheckbox = document.createElement('input')
     todoCompletedCheckbox.type = 'checkbox'
     todoCompletedCheckbox.checked = completed

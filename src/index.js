@@ -5,8 +5,6 @@ import Todo from './models/Todo'
 import StorageHandler from './StorageHandler'
 
 function main () {
-  console.log('Hello, world!')
-
   const domManipulator = new DomManipulator()
   const storageHandler = new StorageHandler()
 
