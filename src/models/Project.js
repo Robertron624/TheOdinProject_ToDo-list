@@ -1,8 +1,13 @@
 class Project {
-  constructor (title, description, todos = []) {
+  constructor (id, title, description, todos = []) {
+    this.id = id
     this.title = title
     this.description = description
     this.todos = todos
+  }
+
+  getId () {
+    return this.id
   }
 
   //  Methods

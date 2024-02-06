@@ -173,6 +173,11 @@ $priority-low: #6f9eaf;
 $base-bg: #363062;
 $base-bg-light: #435585;
 $base-bg-lighter: #818FB4;
+$base-bg-lightest: #dae2e8;
+
+$basebg-dark: #1a202c;
+$base-bg-darker: #0d1117;
+$base-bg-darkest: #040a14;
 
 $background-color: $base-bg-light;
 
@@ -271,7 +276,19 @@ main {
                     cursor: pointer;
                     transition: background-color 0.3s ease-in-out;
 
-                    &:hover {
+                    &.active {
+                        background-color: #0c56d6;
+
+                        h3 {
+                            color: $base-text;
+                        }
+
+                        &:hover {
+                            background-color: #0c56d6;
+                        }
+                    }
+
+                    &:not(.active):hover {
                         background-color: $base-bg-light;
                     }
                 

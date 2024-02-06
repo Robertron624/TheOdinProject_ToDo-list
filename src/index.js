@@ -2,25 +2,15 @@ import './global.scss'
 
 import DomManipulator from './DomManipulator'
 import Todo from './models/Todo'
-import StorageHandler from './StorageHandler'
 import Project from './models/Project'
 
 function main () {
-  let currentProject = null
   const projects = []
 
   const domManipulator = new DomManipulator()
-  const storageHandler = new StorageHandler()
+  domManipulator.createTodoList()
 
-  const todosFromStorage = storageHandler.getTodoList()
-
-  if (todosFromStorage.length > 0) {
-    todosFromStorage.forEach(todo => {
-      domManipulator.addTodo(todo)
-    })
-  }
-
-  const todo = new Todo(
+  const todoExample = new Todo(
     1,
     'Learn JavaScript',
     false,
@@ -28,18 +18,23 @@ function main () {
     'high',
     'I need to learn JavaScript to build web applications'
   )
-  domManipulator.createTodoList()
 
-  const defaultProject = new Project('Default', 'Default project', [todo])
+  const todoExample2 = new Todo(
+    2,
+    'Learn React',
+    true,
+    new Date(),
+    'medium',
+    'I need to learn React to build scalable web applications'
+  )
+
+  const defaultProject = new Project('10', 'Default', 'Default project', [todoExample])
+  const exampleProject = new Project('20', 'Example', 'Example project', [todoExample2])
+
   projects.push(defaultProject)
-  currentProject = defaultProject
-  const currentProjectTodos = currentProject.getTodos()
-
+  projects.push(exampleProject)
   domManipulator.loadProjectsToSidebar(projects)
-
-  currentProjectTodos.forEach(todo => {
-    domManipulator.addTodo(todo)
-  })
+  domManipulator.setCurrentProject(defaultProject)
 }
 
 window.onload = main

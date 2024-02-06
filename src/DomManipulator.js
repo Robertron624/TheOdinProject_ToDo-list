@@ -6,7 +6,29 @@ class DomManipulator {
   content = document.querySelector('#content')
 
   constructor () {
+    this.currentProject = null
     this.todoList = this.#generateTodoList()
+  }
+
+  setCurrentProject (project) {
+    this.currentProject = project
+    const projectTodos = project.getTodos()
+    const projectId = project.getId()
+
+    // find all project items and remove the active class
+    const projectItems = document.querySelectorAll('.project-item')
+    projectItems.forEach(item => {
+      item.classList.remove('active')
+    })
+
+    // add active class to the current project
+    const currentProjectItem = document.getElementById(`project-${projectId}`)
+    currentProjectItem.classList.add('active')
+
+    this.clearTodoList()
+    projectTodos.forEach(todo => {
+      this.addTodo(todo)
+    })
   }
 
   #generateTodoList () {
@@ -99,24 +121,24 @@ class DomManipulator {
   }
 
   addProjectToSidebar (project) {
-    const { title } = project
+    const { id, title } = project
 
     const projectItem = document.createElement('div')
     projectItem.className = 'project-item'
+    projectItem.id = `project-${id}`
     const projectITemTitle = document.createElement('h3')
     projectITemTitle.textContent = title
     projectItem.appendChild(projectITemTitle)
 
-    // Add event listener to load project todos
     projectItem.addEventListener('click', () => {
-      console.info('Project clicked', project)
-      this.todoList.innerHTML = ''
-      project.getTodos().forEach(todo => {
-        this.addTodo(todo)
-      })
+      this.setCurrentProject(project)
     })
 
     this.projectList.appendChild(projectItem)
+  }
+
+  clearTodoList () {
+    this.todoList.innerHTML = ''
   }
 
   loadProjectsToSidebar (projects) {
