@@ -1,4 +1,8 @@
+import { formatDate } from './utils'
+
 class DomManipulator {
+  sideBar = document.querySelector('#sidebar')
+  projectList = document.querySelector('.project-list')
   content = document.querySelector('#content')
 
   constructor () {
@@ -43,7 +47,7 @@ class DomManipulator {
 
     const todoDueDate = document.createElement('p')
     todoDueDate.classList.add('todo-due-date')
-    todoDueDate.textContent = dueDate
+    todoDueDate.textContent = `Due date: ${formatDate(dueDate)}`
 
     const todoPriority = document.createElement('p')
     todoPriority.classList.add('todo-priority')
@@ -67,12 +71,20 @@ class DomManipulator {
     todoCompleted.appendChild(todoCompletedLabel)
     todoCompleted.appendChild(todoCompletedCheckbox)
 
+    const todoDeleteButton = document.createElement('button')
+    todoDeleteButton.className = 'todo-delete-button'
+    todoDeleteButton.textContent = 'Delete'
+    todoDeleteButton.addEventListener('click', () => {
+      this.deleteTodo(id)
+    })
+
     todoItem.appendChild(todoTitle)
     todoItem.appendChild(todoDescription)
     todoItem.appendChild(todoDueDate)
     todoItem.appendChild(todoPriority)
     todoItem.appendChild(todoCreatedAt)
     todoItem.appendChild(todoCompleted)
+    todoItem.appendChild(todoDeleteButton)
 
     return todoItem
   }
@@ -84,6 +96,33 @@ class DomManipulator {
 
   getTodoList () {
     return this.todoList
+  }
+
+  addProjectToSidebar (project) {
+    const { title } = project
+
+    const projectItem = document.createElement('div')
+    projectItem.className = 'project-item'
+    const projectITemTitle = document.createElement('h3')
+    projectITemTitle.textContent = title
+    projectItem.appendChild(projectITemTitle)
+
+    // Add event listener to load project todos
+    projectItem.addEventListener('click', () => {
+      console.info('Project clicked', project)
+      this.todoList.innerHTML = ''
+      project.getTodos().forEach(todo => {
+        this.addTodo(todo)
+      })
+    })
+
+    this.projectList.appendChild(projectItem)
+  }
+
+  loadProjectsToSidebar (projects) {
+    projects.forEach(project => {
+      this.addProjectToSidebar(project)
+    })
   }
 }
 

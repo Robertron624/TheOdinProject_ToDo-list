@@ -1,10 +1,11 @@
 class Project {
-  constructor (title, description, priority, todos = []) {
+  constructor (title, description, todos = []) {
     this.title = title
     this.description = description
-    this.priority = priority
     this.todos = todos
   }
+
+  //  Methods
 
   addTodo (todo) {
     this.todos.push(todo)
