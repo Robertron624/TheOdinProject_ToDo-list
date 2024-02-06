@@ -5,3 +5,9 @@ export function formatDate (date) {
     day: 'numeric'
   })
 }
+
+export function generateTodoId (todos) {
+  const ids = todos.map(todo => todo.id)
+  const maxId = Math.max(...ids)
+  return maxId + 1
+}

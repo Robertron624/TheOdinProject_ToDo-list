@@ -31,6 +31,18 @@ class DomManipulator {
     })
   }
 
+  getCurrentProject () {
+    return this.currentProject
+  }
+
+  renderCurrentProjectTodos () {
+    const projectTodos = this.currentProject.getTodos()
+    this.clearTodoList()
+    projectTodos.forEach(todo => {
+      this.addTodo(todo)
+    })
+  }
+
   #generateTodoList () {
     const todoList = document.createElement('ul')
     todoList.id = 'todo-list'

@@ -4,8 +4,14 @@ import DomManipulator from './DomManipulator'
 import Todo from './models/Todo'
 import Project from './models/Project'
 
+import { generateTodoId } from './utils'
+
 function main () {
   const projects = []
+
+  const newTodoButton = document.querySelector('.modal-trigger')
+  const modal = document.querySelector('.new-todo-modal')
+  const closeModalButton = document.querySelector('.modal-close')
 
   const domManipulator = new DomManipulator()
   domManipulator.createTodoList()
@@ -35,6 +41,54 @@ function main () {
   projects.push(exampleProject)
   domManipulator.loadProjectsToSidebar(projects)
   domManipulator.setCurrentProject(defaultProject)
+
+  newTodoButton.addEventListener('click', () => {
+    modal.showModal()
+  })
+
+  closeModalButton.addEventListener('click', () => {
+    modal.close()
+  })
+
+  // when click outside the modal, close it
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.close()
+    }
+  })
+
+  const newTodoForm = document.querySelector('.new-todo-form')
+
+  newTodoForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const newTodoTitle = document.querySelector('#new-todo-title').value
+    const newTodoDescription = document.querySelector('#new-todo-description').value
+    const newTodoPriority = document.querySelector('#new-todo-priority').value
+    const newTodoDueDate = document.querySelector('#new-todo-due-date').value
+    const newTodoCompleted = document.querySelector('#new-todo-completed').checked
+
+    console.log({
+      newTodoTitle,
+      newTodoDescription,
+      newTodoPriority,
+      newTodoDueDate
+    })
+
+    const currentProject = domManipulator.getCurrentProject()
+    const newTodoId = generateTodoId(currentProject.getTodos())
+
+    const newTodo = new Todo(
+      newTodoId,
+      newTodoTitle,
+      newTodoCompleted,
+      new Date(newTodoDueDate),
+      newTodoPriority,
+      newTodoDescription
+    )
+
+    currentProject.addTodo(newTodo)
+    domManipulator.renderCurrentProjectTodos()
+  })
 }
 
 window.onload = main

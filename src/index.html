@@ -8,12 +8,18 @@
 <body>
     <header>
         <div class="container">
-            <a href="/" class="logo">
-                <img src="assets/logo.png" alt="dank todos logo">
-            </a>
-            <p>
-                Organize your life with Dank Todos!
-            </p>
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <img src="assets/logo.png" alt="dank todos logo">
+                </a>
+                <p>
+                    Organize your life with Dank Todos!
+                </p>
+
+            </div>
+            <button title="add new todo" class="modal-trigger">
+                +
+            </button>
         </div>
     </header>
     <main>
@@ -32,6 +38,57 @@
             &copy; 2024 Dank Todos
         </p>
     </footer>
+    <dialog aria-modal="true" class="new-todo-modal">
+        <div class="modal-header">
+            <h3>
+                Add New Todo
+            </h3>
+            <button class="modal-close">
+                &times;
+            </button>
+        </div>
+        <form class="new-todo-form">
+            <div class="form-group">
+                <label for="new-todo-title">
+                    Title
+                </label>
+                <input type="text" id="new-todo-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="new-todo-description">
+                    Description
+                </label>
+                <textarea id="new-todo-description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="new-todo-due-date">
+                    Due Date
+                </label>
+                <input type="date" id="new-todo-due-date" name="dueDate" required>
+            </div>
+            <div class="form-group">
+                <label for="new-todo-priority">
+                    Priority
+                </label>
+                <select id="new-todo-priority" name="priority" required>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="new-todo-completed">
+                    Completed
+                </label>
+                <input type="checkbox" id="new-todo-completed" name="completed">
+            </div>
+            <div class="form-group">
+                <button type="submit">
+                    Add
+                </button>
+            </div>
+        </form>
+    </dialog>
     <script type="module" src="index.js"></script>
 </body>
 </html>
