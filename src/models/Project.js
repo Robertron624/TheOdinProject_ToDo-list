@@ -14,10 +14,11 @@ class Project {
 
   addTodo (todo) {
     this.todos.push(todo)
+    console.info('Todo added to project, todos now: ', this.todos)
   }
 
-  removeTodo (todo) {
-    this.todos = this.todos.filter(t => t !== todo)
+  removeTodo (todoId) {
+    this.todos = this.todos.filter(todo => todo.id !== todoId)
   }
 
   getTodo (id) {

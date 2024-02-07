@@ -4,10 +4,18 @@ class DomManipulator {
   sideBar = document.querySelector('#sidebar')
   projectList = document.querySelector('.project-list')
   content = document.querySelector('#content')
+  todoList = document.querySelector('#todo-list')
 
   constructor () {
     this.currentProject = null
-    this.todoList = this.#generateTodoList()
+  }
+
+  getCurrentProject () {
+    return this.currentProject
+  }
+
+  getTodoList () {
+    return this.todoList
   }
 
   setCurrentProject (project) {
@@ -27,34 +35,24 @@ class DomManipulator {
 
     this.clearTodoList()
     projectTodos.forEach(todo => {
-      this.addTodo(todo)
+      this.addTodoToDom(todo)
     })
-  }
-
-  getCurrentProject () {
-    return this.currentProject
   }
 
   renderCurrentProjectTodos () {
     const projectTodos = this.currentProject.getTodos()
+
     this.clearTodoList()
     projectTodos.forEach(todo => {
-      this.addTodo(todo)
+      this.addTodoToDom(todo)
     })
-  }
-
-  #generateTodoList () {
-    const todoList = document.createElement('ul')
-    todoList.id = 'todo-list'
-    todoList.className = 'todo-list'
-    return todoList
   }
 
   createTodoList () {
     this.content.appendChild(this.todoList)
   }
 
-  addTodo (todo) {
+  addTodoToDom (todo) {
     this.todoList.appendChild(this.generateTodoItem(todo))
   }
 
@@ -126,10 +124,7 @@ class DomManipulator {
   deleteTodo (id) {
     const todo = document.getElementById(`todo-${id}`)
     this.todoList.removeChild(todo)
-  }
-
-  getTodoList () {
-    return this.todoList
+    this.currentProject.removeTodo(id)
   }
 
   addProjectToSidebar (project) {
@@ -157,6 +152,10 @@ class DomManipulator {
     projects.forEach(project => {
       this.addProjectToSidebar(project)
     })
+  }
+
+  clearNewTodoForm (form) {
+    form.reset()
   }
 }
 

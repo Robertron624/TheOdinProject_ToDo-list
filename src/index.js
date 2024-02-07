@@ -67,13 +67,6 @@ function main () {
     const newTodoDueDate = document.querySelector('#new-todo-due-date').value
     const newTodoCompleted = document.querySelector('#new-todo-completed').checked
 
-    console.log({
-      newTodoTitle,
-      newTodoDescription,
-      newTodoPriority,
-      newTodoDueDate
-    })
-
     const currentProject = domManipulator.getCurrentProject()
     const newTodoId = generateTodoId(currentProject.getTodos())
 
@@ -88,6 +81,8 @@ function main () {
 
     currentProject.addTodo(newTodo)
     domManipulator.renderCurrentProjectTodos()
+    domManipulator.clearNewTodoForm(newTodoForm)
+    modal.close()
   })
 }
 
