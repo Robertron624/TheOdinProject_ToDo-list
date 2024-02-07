@@ -4,14 +4,18 @@ import DomManipulator from './DomManipulator'
 import Todo from './models/Todo'
 import Project from './models/Project'
 
-import { generateTodoId } from './utils'
+import { generateNewItemId } from './utils'
 
 function main () {
   const projects = []
 
   const newTodoButton = document.querySelector('.modal-trigger')
-  const modal = document.querySelector('.new-todo-modal')
-  const closeModalButton = document.querySelector('.modal-close')
+  const newTodoModal = document.querySelector('.new-todo-modal')
+  const newTodoCloseModalButton = document.querySelector('.modal-close')
+
+  const newProjectButton = document.querySelector('.new-project button')
+  const newProjectModal = document.querySelector('.new-project-modal')
+  const newProjectCloseModalButton = document.querySelector('.new-project-modal .modal-close')
 
   const domManipulator = new DomManipulator()
   domManipulator.createTodoList()
@@ -42,18 +46,20 @@ function main () {
   domManipulator.loadProjectsToSidebar(projects)
   domManipulator.setCurrentProject(defaultProject)
 
+  // Handling new Todo modal
+
   newTodoButton.addEventListener('click', () => {
-    modal.showModal()
+    newTodoModal.showModal()
   })
 
-  closeModalButton.addEventListener('click', () => {
-    modal.close()
+  newTodoCloseModalButton.addEventListener('click', () => {
+    newTodoModal.close()
   })
 
   // when click outside the modal, close it
   window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.close()
+    if (e.target === newTodoModal) {
+      newTodoModal.close()
     }
   })
 
@@ -68,7 +74,7 @@ function main () {
     const newTodoCompleted = document.querySelector('#new-todo-completed').checked
 
     const currentProject = domManipulator.getCurrentProject()
-    const newTodoId = generateTodoId(currentProject.getTodos())
+    const newTodoId = generateNewItemId(currentProject.getTodos())
 
     const newTodo = new Todo(
       newTodoId,
@@ -81,8 +87,43 @@ function main () {
 
     currentProject.addTodo(newTodo)
     domManipulator.renderCurrentProjectTodos()
-    domManipulator.clearNewTodoForm(newTodoForm)
-    modal.close()
+    domManipulator.clearNewItemForm(newTodoForm)
+    newTodoModal.close()
+  })
+
+  // Handling new Project modal
+
+  newProjectButton.addEventListener('click', () => {
+    newProjectModal.showModal()
+  })
+
+  newProjectCloseModalButton.addEventListener('click', () => {
+    newProjectModal.close()
+  })
+
+  // when click outside the modal, close it
+  window.addEventListener('click', (e) => {
+    if (e.target === newProjectModal) {
+      newProjectModal.close()
+    }
+  })
+
+  const newProjectForm = document.querySelector('.new-project-form')
+
+  newProjectForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const newProjectTitle = document.querySelector('#new-project-title').value
+    const newProjectDescription = document.querySelector('#new-project-description').value
+
+    const newProjectId = generateNewItemId(projects)
+
+    const newProject = new Project(newProjectId, newProjectTitle, newProjectDescription)
+
+    projects.push(newProject)
+    domManipulator.loadProjectsToSidebar(projects)
+    domManipulator.setCurrentProject(newProject)
+    domManipulator.clearNewItemForm(newProjectForm)
+    newProjectModal.close()
   })
 }
 

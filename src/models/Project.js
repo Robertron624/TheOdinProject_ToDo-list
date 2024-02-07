@@ -6,8 +6,28 @@ class Project {
     this.todos = todos
   }
 
-  getId () {
-    return this.id
+  get id () {
+    return this._id
+  }
+
+  get title () {
+    return this._title
+  }
+
+  get description () {
+    return this._description
+  }
+
+  set id (id) {
+    this._id = id
+  }
+
+  set title (title) {
+    this._title = title
+  }
+
+  set description (description) {
+    this._description = description
   }
 
   //  Methods

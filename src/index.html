@@ -30,6 +30,11 @@
                 </h1>
                 <div class="project-list"></div>
             </div>
+            <div class="new-project">
+                <button class="new-project-trigger">
+                    + New Project
+                </button>
+            </div>
         </section>
         <section id="content">
             <ul id="todo-list" class="todo-list"></ul>
@@ -85,6 +90,39 @@
                 <input type="checkbox" id="new-todo-completed" name="completed">
             </div>
             <div class="form-group">
+                <button type="submit">
+                    Add
+                </button>
+            </div>
+        </form>
+    </dialog>
+    <dialog aria-modal="true" class="new-project-modal">
+        <div class="modal-header">
+            <h3>
+                Add New Project
+            </h3>
+            <button class="modal-close">
+                &times;
+            </button>
+        </div>
+        <form class="new-project-form">
+            <div class="form-group
+            ">
+                <label for="new-project-title">
+                    Title
+                </label>
+                <input type="text" id="new-project-title" name="title" required>
+
+            </div>
+            <div class="form-group
+            ">
+                <label for="new-project-description">
+                    Description
+                </label>
+                <textarea id="new-project-description" name="description" required></textarea>
+            </div>
+            <div class="form-group
+            ">
                 <button type="submit">
                     Add
                 </button>

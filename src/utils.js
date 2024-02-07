@@ -6,8 +6,8 @@ export function formatDate (date) {
   })
 }
 
-export function generateTodoId (todos) {
-  const ids = todos.map(todo => todo.id)
+export function generateNewItemId (items) {
+  const ids = items.map(item => item.id)
   const maxId = Math.max(...ids)
   return maxId + 1
 }

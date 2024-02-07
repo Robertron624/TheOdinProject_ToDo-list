@@ -21,7 +21,7 @@ class DomManipulator {
   setCurrentProject (project) {
     this.currentProject = project
     const projectTodos = project.getTodos()
-    const projectId = project.getId()
+    const projectId = project.id
 
     // find all project items and remove the active class
     const projectItems = document.querySelectorAll('.project-item')
@@ -149,12 +149,13 @@ class DomManipulator {
   }
 
   loadProjectsToSidebar (projects) {
+    this.projectList.innerHTML = ''
     projects.forEach(project => {
       this.addProjectToSidebar(project)
     })
   }
 
-  clearNewTodoForm (form) {
+  clearNewItemForm (form) {
     form.reset()
   }
 }

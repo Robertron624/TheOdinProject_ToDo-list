@@ -207,7 +207,7 @@ body {
     min-height: 100vh;
 }
 
-.new-todo-modal {
+%common-modal-styles {
     border: none;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -217,6 +217,12 @@ body {
     width: 90%;
     max-width: 400px;
 
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+dialog {
     .modal-header {
         display: flex;
         justify-content: space-between;
@@ -242,50 +248,59 @@ body {
         }
     }
 
-    .new-todo-form {
+    form {
         display: grid;
         gap: 1rem;
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: .2rem;
+    }
 
-            label {
-                font-size: 0.9rem;
-            }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
 
-            select,
-            #new-todo-description,
-            input {
-                padding: 0.5rem;
-                border-radius: 0.5rem;
-            }
+        label {
+            font-size: 0.9rem;
+        }
 
-            input[type="checkbox"] {
-                width: 20px;
-                height: 20px;
-            }
+        input,
+        select,
+        textarea {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
 
-            button {
-                padding: 0.5rem 1rem;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                background-color: #6f9eaf;
-                border: 1px solid #6f9eaf;
-                color: $text-color-2;
-                transition: background-color 0.3s ease-in-out;
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            background-color: #6f9eaf;
+            border: 1px solid #6f9eaf;
+            color: $text-color-2;
+            transition: background-color 0.3s ease-in-out;
 
-                &:hover {
-                    background-color: $text-color-2;
-                    color: #6f9eaf;
-                }
+            &:hover {
+                background-color: $text-color-2;
+                color: #6f9eaf;
             }
         }
     }
 
-    &::backdrop {
-        background-color: rgba(0, 0, 0, 0.5);
+}
+
+.new-todo-modal {
+    @extend %common-modal-styles;
+    .new-todo-form {
+        .form-group {
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+            }
+        }
     }
+}
+
+.new-project-modal {
+    @extend %common-modal-styles;
 }
 
 header {
@@ -365,6 +380,10 @@ main {
         max-width: 300px;
         width: 30%;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
         .projects-container {
             h1 {
                 font-size: 1.3rem;
@@ -414,6 +433,23 @@ main {
                     &:not(.active):hover {
                         background-color: $base-bg-light;
                     }
+                }
+            }
+        }
+
+        .new-project {
+            button {
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                background-color: #df9760;
+                border: 1px solid #df9760;
+                color: $text-color-2;
+                transition: background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: $text-color-2;
+                    color: #df9760;
                 }
             }
         }
