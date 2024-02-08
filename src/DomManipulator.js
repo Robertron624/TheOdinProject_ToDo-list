@@ -5,6 +5,7 @@ class DomManipulator {
   projectList = document.querySelector('.project-list')
   content = document.querySelector('#content')
   todoList = document.querySelector('#todo-list')
+  confirmDeleteModal = document.querySelector('.confirm-delete-modal')
 
   constructor () {
     this.currentProject = null
@@ -109,7 +110,7 @@ class DomManipulator {
     todoDeleteButton.className = 'todo-delete-button'
     todoDeleteButton.textContent = 'Delete'
     todoDeleteButton.addEventListener('click', () => {
-      this.deleteTodo(id)
+      this.handleConfirmDeleteModal(id)
     })
 
     todoItem.appendChild(todoTitle)
@@ -167,6 +168,20 @@ class DomManipulator {
     emptyTodosMessage.className = 'empty-todos-message full-width text-center'
     emptyTodosMessage.innerHTML = 'There are no todos in this project. </br> Add a new todo to get started.'
     this.todoList.appendChild(emptyTodosMessage)
+  }
+
+  handleConfirmDeleteModal (todoId) {
+    this.confirmDeleteModal.showModal()
+    const confirmDeleteButton = document.querySelector('.confirm-delete-modal .confirm-delete')
+    const cancelDeleteButton = document.querySelector('.confirm-delete-modal .cancel-delete')
+    confirmDeleteButton.addEventListener('click', () => {
+      this.deleteTodo(todoId)
+      this.confirmDeleteModal.close()
+    })
+
+    cancelDeleteButton.addEventListener('click', () => {
+      this.confirmDeleteModal.close()
+    })
   }
 }
 

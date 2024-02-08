@@ -215,7 +215,7 @@ body {
     min-height: 100vh;
 }
 
-%common-modal-styles {
+dialog {
     border: none;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -228,9 +228,6 @@ body {
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.5);
     }
-}
-
-dialog {
     .modal-header {
         margin-bottom: 1rem;
 
@@ -291,7 +288,6 @@ dialog {
 }
 
 .new-todo-modal {
-    @extend %common-modal-styles;
     .new-todo-form {
         .form-group {
             input[type="checkbox"] {
@@ -302,8 +298,51 @@ dialog {
     }
 }
 
-.new-project-modal {
-    @extend %common-modal-styles;
+.confirm-delete-modal {
+    .modal-header {
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+    p {
+        font-size: 1rem;
+        margin-top: .5rem;
+    }
+
+    .buttons {
+        gap: 1rem;
+        margin-top: 1.1rem;
+
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .confirm-delete {
+            background-color: #e62b34;
+            border: 1px solid #e62b34;
+            color: $text-color-2;
+
+            &:hover {
+                background-color: $text-color-2;
+                color: #e62b34;
+            }
+        }
+
+        .cancel-delete {
+            background-color: #6f9eaf;
+            border: 1px solid #6f9eaf;
+            color: $text-color-2;
+
+            &:hover {
+                background-color: $text-color-2;
+                color: #6f9eaf;
+            }
+        }
+    }
 }
 
 header {
