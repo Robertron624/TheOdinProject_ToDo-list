@@ -34,7 +34,6 @@ class Project {
 
   addTodo (todo) {
     this.todos.push(todo)
-    console.info('Todo added to project, todos now: ', this.todos)
   }
 
   removeTodo (todoId) {

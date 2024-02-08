@@ -1,6 +1,7 @@
 import './global.scss'
 
 import DomManipulator from './DomManipulator'
+import StorageHandler from './StorageHandler'
 import Todo from './models/Todo'
 import Project from './models/Project'
 
@@ -18,33 +19,49 @@ function main () {
   const newProjectCloseModalButton = document.querySelector('.new-project-modal .modal-close')
 
   const domManipulator = new DomManipulator()
+  const storageHandler = new StorageHandler()
+
   domManipulator.createTodoList()
 
-  const todoExample = new Todo(
-    1,
-    'Learn JavaScript',
-    false,
-    new Date(),
-    'high',
-    'I need to learn JavaScript to build web applications'
-  )
+  const savedProjects = storageHandler.getProjects()
 
-  const todoExample2 = new Todo(
-    2,
-    'Learn React',
-    true,
-    new Date(),
-    'medium',
-    'I need to learn React to build scalable web applications'
-  )
+  let toBeDefaultProject = null
 
-  const defaultProject = new Project('10', 'Default', 'Default project', [todoExample])
-  const exampleProject = new Project('20', 'Example', 'Example project', [todoExample2])
+  if (savedProjects.length > 0) {
+    projects.push(...savedProjects)
+    toBeDefaultProject = projects[0]
+    console.log('projects loaded from local storage')
+  } else {
+    console.log('no projects found in local storage, loading example projects')
+    const todoExample = new Todo(
+      1,
+      'Learn JavaScript',
+      false,
+      new Date(),
+      'high',
+      'I need to learn JavaScript to build web applications'
+    )
 
-  projects.push(defaultProject)
-  projects.push(exampleProject)
+    const todoExample2 = new Todo(
+      2,
+      'Learn React',
+      true,
+      new Date(),
+      'medium',
+      'I need to learn React to build scalable web applications'
+    )
+
+    const defaultProject = new Project('10', 'Default', 'Default project', [todoExample])
+    const exampleProject = new Project('20', 'Example', 'Example project', [todoExample2])
+
+    projects.push(defaultProject)
+    projects.push(exampleProject)
+
+    toBeDefaultProject = defaultProject
+  }
+
   domManipulator.loadProjectsToSidebar(projects)
-  domManipulator.setCurrentProject(defaultProject)
+  domManipulator.setCurrentProject(toBeDefaultProject)
 
   // Handling new Todo modal
 
