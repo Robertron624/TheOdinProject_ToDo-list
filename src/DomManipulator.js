@@ -20,8 +20,7 @@ class DomManipulator {
 
   setCurrentProject (project) {
     this.currentProject = project
-    const projectTodos = project.getTodos()
-    const projectId = project.id
+    const projectId = this.currentProject.id
 
     // find all project items and remove the active class
     const projectItems = document.querySelectorAll('.project-item')
@@ -34,13 +33,16 @@ class DomManipulator {
     currentProjectItem.classList.add('active')
 
     this.clearTodoList()
-    projectTodos.forEach(todo => {
-      this.addTodoToDom(todo)
-    })
+    this.renderCurrentProjectTodos()
   }
 
   renderCurrentProjectTodos () {
     const projectTodos = this.currentProject.getTodos()
+
+    if (projectTodos.length === 0) {
+      this.renderEmptyTodosMessage()
+      return
+    }
 
     this.clearTodoList()
     projectTodos.forEach(todo => {
@@ -91,7 +93,7 @@ class DomManipulator {
     todoCreatedAt.textContent = createdAt
 
     const todoCompleted = document.createElement('div')
-    todoCompleted.classList.add('todo-completed')
+    todoCompleted.className = 'todo-completed flex align-center'
     const todoCompletedLabel = document.createElement('label')
     todoCompletedLabel.textContent = 'Completed?'
     const todoCompletedCheckbox = document.createElement('input')
@@ -134,6 +136,7 @@ class DomManipulator {
     projectItem.className = 'project-item'
     projectItem.id = `project-${id}`
     const projectITemTitle = document.createElement('h3')
+    projectITemTitle.className = 'project-item-title word-break'
     projectITemTitle.textContent = title
     projectItem.appendChild(projectITemTitle)
 
@@ -157,6 +160,13 @@ class DomManipulator {
 
   clearNewItemForm (form) {
     form.reset()
+  }
+
+  renderEmptyTodosMessage () {
+    const emptyTodosMessage = document.createElement('p')
+    emptyTodosMessage.className = 'empty-todos-message full-width text-center'
+    emptyTodosMessage.innerHTML = 'There are no todos in this project. </br> Add a new todo to get started.'
+    this.todoList.appendChild(emptyTodosMessage)
   }
 }
 
