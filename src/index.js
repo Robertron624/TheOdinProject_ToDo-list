@@ -142,6 +142,12 @@ function main () {
     domManipulator.clearNewItemForm(newProjectForm)
     newProjectModal.close()
   })
+
+  // save projects to local storage when page is closed
+
+  window.addEventListener('beforeunload', () => {
+    storageHandler.saveProjects(projects)
+  })
 }
 
 window.onload = main
