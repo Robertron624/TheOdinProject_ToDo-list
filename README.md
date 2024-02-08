@@ -19,7 +19,12 @@ This is a simple todo list project for The Odin Project. The project is to creat
 
 ## Live Demo
 
-[Live Demo Link](https://rawcdn.githack.com/brugobi/todo-list/)
+[Live Demo Link](https://robert-odin-todo-list.netlify.app/)
+
+## Screenshot
+
+![image](https://github.com/Robertron624/TheOdinProject_ToDo-list/assets/72587880/1c4652ae-c44b-4efb-9229-8c90cd33405e)
+
 
 ## Built With
 
